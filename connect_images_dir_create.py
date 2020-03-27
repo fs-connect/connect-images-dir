@@ -67,45 +67,54 @@ def main():
 
     if path.lower().endswith(('.conf', '.json')):
         with open (path) as json_file:
-            if not os.path.exists("images/np_ng"):
-                os.makedirs("images/np_ng")
+            #if not os.path.exists("images/np_ng"):
+            #    os.makedirs("images/np_ng")
             data = json.load (json_file)
-            for ag in data['action_groups']:
-                if not os.path.exists("images/np_ng/action_groups/" +ag['name']+"/"):
-                    os.makedirs("images/np_ng/action_groups/" + ag['name']+"/")
-                filename = "images/np_ng/action_groups/" + ag['name']+"/" + ag['name'] +".png"
-                final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
-                final_img.save(filename, format="png")
-
-            for a in data['actions']:
-                if not os.path.exists("images/np_ng/actions/" + a['name'] + "/"):
-                    os.makedirs("images/np_ng/actions/"+ a['name'] + "/")
-
-                filename1 = "images/np_ng/actions/" + a['name'] +"/" + a['name'] + ".png"
-                filename2 = "images/np_ng/actions/" + a['name'] +"/failed_" + a['name'] + ".png"
-                filename3 = "images/np_ng/actions/" + a['name'] +"/gray_" + a['name'] + ".png"
-                filename4 = "images/np_ng/actions/" + a['name'] +"/waiting_" + a['name'] + ".png"
-                final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
-                final_img.save(filename1, format="png")
-                final_img.save(filename2, format="png")
-                final_img.save(filename3, format="png")
-                final_img.save(filename4, format="png")
-            for g in data['groups']:
-                if not os.path.exists("images/np_ng/field_groups/" + g['name'] + "/"):
-                    os.makedirs("images/np_ng/field_groups/"+ g['name'] + "/")
-                filename = "images/np_ng/field_groups/"+ g['name'] + "/" + g['name'] + ".png"
-                final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
-                final_img.save(filename, format="png")
-            #print (data['policy_template']['policies'])
-
-            for policy in data['policy_template']['policies']:
-                if not os.path.exists("images/np_ng/templatedirs/" + data['policy_template']['policy_template_group']['name'] + "/"):
-                    os.makedirs("images/np_ng/templatedirs/"+ data['policy_template']['policy_template_group']['name'] + "/")
-
-                if not os.path.exists("images/np_ng/templatedirs/"+ data['policy_template']['policy_template_group']['name'] + "/" + policy['title_image']):
-                    filename = "images/np_ng/templatedirs/"+ data['policy_template']['policy_template_group']['name'] + "/" + policy['title_image']
+            try:
+                for ag in data['action_groups']:
+                    if not os.path.exists("images/np_ng/action_groups/" +ag['name']+"/"):
+                        os.makedirs("images/np_ng/action_groups/" + ag['name']+"/")
+                    filename = "images/np_ng/action_groups/" + ag['name']+"/" + ag['name'] +".png"
                     final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
                     final_img.save(filename, format="png")
+            except:
+                print ("No Action Groups created")
+            try:
+                for a in data['actions']:
+                    if not os.path.exists("images/np_ng/actions/" + a['name'] + "/"):
+                        os.makedirs("images/np_ng/actions/"+ a['name'] + "/")
+
+                    filename1 = "images/np_ng/actions/" + a['name'] +"/" + a['name'] + ".png"
+                    filename2 = "images/np_ng/actions/" + a['name'] +"/failed_" + a['name'] + ".png"
+                    filename3 = "images/np_ng/actions/" + a['name'] +"/gray_" + a['name'] + ".png"
+                    filename4 = "images/np_ng/actions/" + a['name'] +"/waiting_" + a['name'] + ".png"
+                    final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
+                    final_img.save(filename1, format="png")
+                    final_img.save(filename2, format="png")
+                    final_img.save(filename3, format="png")
+                    final_img.save(filename4, format="png")
+            except:
+                print("No Actions created")
+            try:
+                for g in data['groups']:
+                    if not os.path.exists("images/np_ng/field_groups/" + g['name'] + "/"):
+                        os.makedirs("images/np_ng/field_groups/"+ g['name'] + "/")
+                    filename = "images/np_ng/field_groups/"+ g['name'] + "/" + g['name'] + ".png"
+                    final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
+                    final_img.save(filename, format="png")
+            except:
+                print("No Field Groups created")
+            try:
+                for policy in data['policy_template']['policies']:
+                    if not os.path.exists("images/np_ng/templatedirs/" + data['policy_template']['policy_template_group']['name'] + "/"):
+                        os.makedirs("images/np_ng/templatedirs/"+ data['policy_template']['policy_template_group']['name'] + "/")
+
+                    if not os.path.exists("images/np_ng/templatedirs/"+ data['policy_template']['policy_template_group']['name'] + "/" + policy['title_image']):
+                        filename = "images/np_ng/templatedirs/"+ data['policy_template']['policy_template_group']['name'] + "/" + policy['title_image']
+                        final_img = Image.new('RGBA', (16,16), (0, 0, 0, 0))
+                        final_img.save(filename, format="png")
+            except:
+                print("No policy template templatedirs created")
 
 
     else:
